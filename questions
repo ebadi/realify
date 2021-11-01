@@ -1,0 +1,155 @@
+where there is no rotation?
+U-Net is a classifier but it is used for generator?
+Network shapre, what are the arrows ? dataflow? but why we have two dataflow for each step ?
+in the "Test the generator:" why the image looks like this?
+Why descriminator resuturns an image
+discriminator_loss ? 
+What is the predicted image? (before training)
+CAN EDGE detection instead of classification be used ? 
+
+learn more about 
+cGANs : conditional Generative Adversarial Networks --> use min/max idea   ---> check what is this extra conditional information is ? It was somewhere in the paper
+Each block in the encoder is: Convolution -> Batch normalization -> Leaky ReLU
+Each block in the decoder is: Transposed convolution -> Batch normalization -> Dropout (applied to the first 3 blocks) -> ReLU
+There are skip connections between the encoder and decoder (as in the U-Net)
+
+
+tf.keras.layers.Conv2D
+
+
+
+[I 15:13:18.599 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:15:18.537 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:17:18.657 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:19:19.062 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:21:19.064 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:23:19.597 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:25:19.605 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:27:20.750 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:29:20.766 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:31:20.704 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:33:20.755 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:35:20.752 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:37:20.820 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:39:20.758 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:41:20.819 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:43:20.797 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:45:20.816 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:47:20.718 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:49:20.742 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:51:20.781 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:53:20.747 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:55:20.765 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:57:20.796 NotebookApp] Saving file at /pix2pix.ipynb
+[I 15:59:20.727 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:01:20.733 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:03:20.816 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:05:21.147 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:07:21.991 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:09:22.020 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:11:21.999 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:13:21.989 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:15:22.003 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:17:22.023 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:19:21.996 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:21:22.001 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:23:22.051 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:25:21.998 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:27:22.089 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:29:22.054 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:31:22.005 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:33:22.083 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:35:22.007 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:37:22.044 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:39:22.037 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:41:21.996 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:43:22.014 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:45:22.030 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:47:22.006 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:49:22.003 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:51:22.038 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:53:22.027 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:55:22.071 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:57:22.114 NotebookApp] Saving file at /pix2pix.ipynb
+[I 16:59:22.108 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:01:22.023 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:03:22.016 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:05:22.000 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:07:22.036 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:09:22.024 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:11:22.022 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:13:21.996 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:15:22.092 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:17:21.995 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:19:22.077 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:21:22.087 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:23:22.060 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:25:22.018 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:27:22.002 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:29:22.851 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:31:23.875 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:33:23.778 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:35:23.773 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:37:23.792 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:39:23.790 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:41:23.785 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:43:23.758 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:45:23.835 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:47:23.743 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:49:23.782 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:51:23.866 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:53:23.771 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:55:23.804 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:57:23.767 NotebookApp] Saving file at /pix2pix.ipynb
+[I 17:59:23.765 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:01:23.771 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:03:23.822 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:05:23.765 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:07:23.850 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:09:23.824 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:11:23.822 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:13:23.758 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:15:23.846 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:17:23.756 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:19:23.781 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:21:23.772 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:23:23.767 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:25:23.774 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:27:23.767 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:29:23.757 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:31:23.766 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:33:23.825 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:35:23.785 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:37:23.784 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:39:23.821 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:41:23.772 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:43:23.820 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:45:23.767 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:47:23.772 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:49:23.773 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:51:23.767 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:53:23.783 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:55:23.825 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:57:23.769 NotebookApp] Saving file at /pix2pix.ipynb
+[I 18:59:23.781 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:01:23.776 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:03:23.774 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:05:23.873 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:07:23.827 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:09:23.792 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:11:23.787 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:13:23.886 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:15:23.782 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:17:23.787 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:19:23.867 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:21:23.781 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:23:23.860 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:25:23.797 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:27:23.790 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:29:23.846 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:31:23.853 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:33:23.849 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:35:23.835 NotebookApp] Saving file at /pix2pix.ipynb
+[I 19:37:23.768 NotebookApp] Saving file at /pix2pix.ipynb
+
+
