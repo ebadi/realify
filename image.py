@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageFilter
 import pymeanshift as pms
 import os
 import sys
@@ -27,9 +27,11 @@ if __name__ == "__main__":
         padded = Image.new("RGB", (256, 256))
         padded.paste(original_image2, (0,0))
 
-        (segmented_image, labels_image, number_regions) = pms.segment(padded, spatial_radius=6,
-                                                                      range_radius=4.5, min_density=50)
-        pil_image=Image.fromarray(segmented_image)
+        #(segmented_image, labels_image, number_regions) = pms.segment(padded, spatial_radius=6, range_radius=4.5, min_density=50)
+        #pil_image=Image.fromarray(segmented_image)
+
+        pil_image = padded.convert("L")
+        pil_image = pil_image.filter(ImageFilter.FIND_EDGES)
 
         double = Image.new("RGB", (512, 256))
         double.paste(pil_image, (256,0))

@@ -566,7 +566,7 @@ summary_writer = tf.summary.create_file_writer(
 
 if __name__ == "__main__":
   if sys.argv[1] == 'train':
-    fit(train_dataset, test_dataset, steps=600000)
+    fit(train_dataset, test_dataset, steps=5000)
   else:
     # Restoring the latest checkpoint in checkpoint_dir
 
@@ -577,7 +577,7 @@ if __name__ == "__main__":
 
     # Run the trained model on a few examples from the test set
 
-    for inp, tar in test_dataset.take(1):
+    for inp, tar in test_dataset.take(5):
       generate_images(generator, inp, tar, display=True)
 
 
