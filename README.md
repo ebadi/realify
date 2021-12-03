@@ -1,6 +1,8 @@
 ### Installation
 Create and enable virtual env:
 ```
+git clone https://github.com/ebadi/realify
+cd realify
 python3 -m venv env
 source env/bin/activate
 ```
@@ -40,30 +42,15 @@ sudo apt-get install python3-tk
 
 ### Training
 Install packages needed for training:
+
 ```
 pip3 install Pillow
 pip3 install opencv-python
 pip3 install opencv-contrib-python==4.5.3.56
 pip3 install scikit-build
 ```
-Install [LicensePlateGenerator](https://github.com/ebadi/LicensePlateGenerator)
-```
-git clone https://github.com/ebadi/LicensePlateGenerator.git
-cd LicensePlateGenerator
-python3 licenseplate_noborder.py
-```
 
-
-Install [pymeanshift](https://github.com/fjean/pymeanshift/wiki/Install
-)
-```
-git clone https://github.com/fjean/pymeanshift.git
-cd pymeanshift
-python3 ./setup.py build
-python3 ./setup.py install
-```
-
-Build the training data:
+The follwoing script automatically install [LicensePlateGenerator](https://github.com/ebadi/LicensePlateGenerator) and [pymeanshift](https://github.com/fjean/pymeanshift/wiki/Install) and build the training data:
 
 ```
 ./build_training_data.sh
@@ -73,4 +60,35 @@ Build the training data:
 Run the model:
 ```
 ./exec_model.sh
+```
+
+
+
+
+Without GPU
+```
+Step: 0k
+Time taken for 1000 steps: 802.29 sec...............................................................[2K
+
+Step: 1k
+Time taken for 1000 steps: 427.89 sec...............................................................[2K
+
+Step: 2k
+Time taken for 1000 steps: 404.76 sec...............................................................[2K
+```
+
+With GPU
+
+```
+Step: 0k
+Time taken for 1000 steps: 71.60 sec................................................................←[2K
+
+Step: 1k
+Time taken for 1000 steps: 71.53 sec................................................................←[2K
+
+Step: 2k
+Time taken for 1000 steps: 76.28 sec................................................................←[2K
+
+Step: 3k
+Time taken for 1000 steps: 70.84 sec................................................................←[2K
 ```
