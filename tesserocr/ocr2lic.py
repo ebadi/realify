@@ -5,7 +5,7 @@ import os
 
 directory = "."
 
-TICKNESS = 1
+TICKNESS = 2
 
 def get_optimal_font_scale_height(text, height):
 	for scale in reversed(range(0, 60, 1)):
@@ -23,6 +23,7 @@ def get_optimal_font_scale_width(text, width):
 			return scale/10
 	return 1
 
+
 def ocr2lic(filename):
 	# read the image and get the dimensions
 	img = cv2.imread(filename)
@@ -30,61 +31,51 @@ def ocr2lic(filename):
 	blank_image = np.zeros((h,w,d), np.uint8)
 	blank_image.fill(255)
 
-
+	print ("h, w, d",h, w, d)
 	# run tesseract, returning the bounding boxes
 	boxes = pytesseract.image_to_boxes(img) # also include any config options you use
 	print(boxes)
 	
-	totalx = 0
-	totaly = 0
-	count = 0 
-	
+	x1min = 1000
+	x2max = 0
+	y1total = 0
+	y2total = 0
+	count = 0
+	letter = ""
 	for b in boxes.splitlines():
 		b = b.split(' ')
+		letter = letter + b[0]
 		x1= int(b[1])
 		y1= int(b[2])
 		x2= int(b[3])
 		y2= int(b[4])
-		dx = x2-x1
-		dy=  y2-y1
-		totalx = totalx + dx
-		totaly = totaly + dy
-		count = count +1  
-
-	xavg = totalx / count
-	yavg = totaly / count
-
-	# draw the bounding boxes on the image
-	for b in boxes.splitlines():
-		b = b.split(' ')
-		letter = b[0]
-		x1= int(b[1])
-		y1= int(b[2])
-		x2= int(b[3])
-		y2= int(b[4])
-
-
+		y1total = y1total + y1
+		y2total = y2total + y2
+		x1min = min(x1,x1min)
+		x2max = max(x2,x2max)
+		count = count +1
 		img = cv2.rectangle(img, (x1, h - y1), (x2, h - y2), (0, 255, 0), 2)
 
-		# font
-		font = cv2.FONT_HERSHEY_SIMPLEX
-		# org
-		org = (x1, y1)
+	y1avg = int(y1total / count)
+	y2avg = int(y2total / count)
 
-		#scale_y = get_optimal_font_scale_height(letter, y2-y1)
-		#scale_x = get_optimal_font_scale_width(letter, x2-x1)
-		#fontScale = min(scale_x, scale_y)
+	x1min = max( 25, x1min)
+	x2max = min( w - 25, x2max)
+	print("x1min, y1avg, x2max, y2avg" , x1min, y1avg, x2max, y2avg )
+	img = cv2.rectangle(img, (x1min, y1avg), (x2max, y2avg), (255, 255, 0), 2)
+	cv2.imshow(filename, img)
 
-		scale_y = get_optimal_font_scale_height(letter, yavg)
-		scale_x = get_optimal_font_scale_width(letter, xavg)
-		fontScale = scale_x
-		# Black
-		color = (0, 0, 0)
-		# Line thickness of 2 px
-		thick = TICKNESS
-		# Using cv2.putText() method
+	#letter = "2AJ 4840"
 
-		blank_image = cv2.putText(blank_image, letter, org, font, fontScale, color, thick, cv2.LINE_AA)
+	fontScalex = get_optimal_font_scale_height(letter, y2avg - y1avg)
+	fontScaley = get_optimal_font_scale_width(letter, x2max - x1min)
+	fontScale = min(fontScalex, fontScaley)
+
+	font = cv2.FONT_HERSHEY_SIMPLEX
+	org = (x1min, y2avg )
+	color = (1, 0, 0)
+	thick = 2
+	blank_image = cv2.putText(blank_image, letter, org, font, fontScale, color, thick, cv2.LINE_AA)
 
 	# show annotated image and wait for keypress
 	cv2.imshow(filename, img)
