@@ -8,6 +8,17 @@ import numpy
 
 import json
 import os
+FONT = 'din1451alt.ttf'
+
+def find_font_size(ch, deltax, deltay):
+    fontsize = 31
+    font = ImageFont.truetype(FONT, fontsize)
+    while font.getsize(ch)[0] < deltax and font.getsize(ch)[1] < deltay:
+        # iterate until the text size is just larger than the criteria
+        fontsize += 1
+        font = ImageFont.truetype(FONT, fontsize + 1)
+    #print("font::::", fontsize)
+    return fontsize
 
 
 if __name__ == "__main__":
@@ -30,8 +41,11 @@ if __name__ == "__main__":
             csvdata["x4"], csvdata["y4"] = row[5].split(":")
             filename = csvdata["filename"]
 
-            original_image = Image.open(os.fsdecode(directory) + '/' +filename)
-
+            try:
+                original_image = Image.open(os.fsdecode(directory) + '/' +filename)
+            except:
+                print("ERROR:: CANNOT FIND FILE:", filename)
+                continue
             #### resize, keep the aspect ratio
             width = original_image.size[0]
             height = original_image.size[1]
@@ -46,67 +60,71 @@ if __name__ == "__main__":
             padded = Image.new("RGB", (256, 256))
             padded.paste(original_image_resized, (0,0))
 
-            #print("File ", csvdata["filename"], "Text::", csvdata["text"])
 
+            bashCommand = "alpr " + os.fsdecode(directory) + '/' +filename + " -c eu --debug --config openalpr-plusplus.conf | grep JSON >  out/out.json"
+            os.system(bashCommand)
+            bashCommand = "cat out/out.json | grep DEBUG1 > out/"+ filename+ "1.json"
+            # bashCommand = "cat out/out.json | grep DEBUG2 > out/"+ filename+ "2.json"
 
-
-            bashCommand1 = " alpr " + os.fsdecode(directory) + '/' +filename + " -c eu --debug --config openalpr-plusplus.conf | grep JSON >  out/" + filename + ".json"
-            os.system(bashCommand1)
-
-            bashCommand2 = "sed -e s/JSON://g -i out/" + filename + ".json"
-            os.system(bashCommand2)
-            #print(bashCommand1)
-            #print(bashCommand2)
-
+            os.system(bashCommand)
+            bashCommand = "sed -e s/DEBUG1_JSON://g -i out/"+ filename+ "1.json"
+            # bashCommand = "sed -e s/DEBUG2_JSON://g -i out/"+ filename+ "2.json"
+            os.system(bashCommand)
             try:
-                data = json.load(open("out/" + filename + ".json"))
+                jsondata = json.load(open("out/" + filename + "1.json"))
             except:
                 print("file", filename, "not selected (openALPR not detecting any license plate)")
-                pass
-            platedata ={}
-            for i, c in enumerate(csvdata['text']):
-                platedata[i] = {}
-                platedata[i]['symbol'] = csvdata['text'][i]
-                platedata[i]['info'] = False
+                continue
 
-            for tid, titem  in enumerate(data['thresholds']):
-                for rid, ritem in enumerate(titem['regions']):
-                    for oid, oitem in enumerate(ritem['ocr_detections']):
-                        for sid, sitem in enumerate(oitem['font_info']['symbols']):
-                            if rid < len(platedata) and  (not platedata[rid]['info'] ) :
-                                if platedata[rid]['symbol'] == sitem['symbol']:
-                                    platedata[rid]["fontname"] =  oitem['font_info']["fontName"]
-                                    platedata[rid]["pointsize"] = oitem['font_info']["pointsize"]
-                                    platedata[rid]["x"] = ritem['x']
-                                    platedata[rid]["y"] = ritem['y']
-                                    platedata[rid]["height"] = ritem['height']
-                                    platedata[rid]["width"] = ritem['width']
-                                    platedata[rid]['info'] = True
-                            if rid+1 < len(platedata) and (not platedata[rid]['info']):
-                                if platedata[rid+1]['symbol'] == sitem['symbol']:
-                                    platedata[rid+1]["fontname"] =  oitem['font_info']["fontName"]
-                                    platedata[rid+1]["pointsize"] =  oitem['font_info']["pointsize"]
-                                    platedata[rid+1]["x"] =  ritem['x']
-                                    platedata[rid+1]["y"] =  ritem['y']
-                                    platedata[rid+1]["height"] =  ritem['height']
-                                    platedata[rid+1]["width"] =  ritem['width']
-                                    platedata[rid+1]['info'] = True
+            secondImage = Image.new("RGB", (256, 256))
+            secondImage.paste(original_image_resized, (0, 0))
+            draw = ImageDraw.Draw(secondImage)
+
+            print("File::", csvdata["filename"])
+            #print("regionsOfInterest::", jsondata['regionsOfInterest'])
+            #print("plateRegions::", jsondata['plateRegions'])
+            #print("resultplates::")
+
+            for plate in jsondata['resultplates']:
+                #print("coords:")
+                # for coord in plate['coords']:
+                #    print(coord)
+
+                #print("best:")
+                for c in plate['candidates']:
 
 
-                            #      The same for rid - 1 ?
 
-            s2=""
-            # print("platedata:", platedata)
-            for pid in range(len(platedata)):
-                s2=s2 + platedata[pid]['symbol']
-            #print("symbols detected for", csvdata['text'], "other string", s2 )
-            if csvdata['text'] !=  s2 :
-                print("ERROR", filename)
+                    indx = 0
+                    for b in c['license']:
+                        # print(b)
+                        avgx1 = (b['p1x'] + b['p4x'])/2
+                        avgx2 = (b['p2x'] + b['p3x'])/2
 
+                        avgy1 = (b['p1y'] + b['p2y']) / 2
+                        avgy2 = (b['p3y'] + b['p4y']) / 2
 
+                        deltax = avgx2 - avgx1
+                        deltay = avgy2 - avgy1
+
+                        ch = b['character']
+
+                        if indx < len(csvdata["text"]) and ch == csvdata["text"][indx] :
+                            print("comparing", ch, " with ", csvdata["text"][indx])
+                            fontsize = find_font_size(ch, deltax, deltay)
+                            font = ImageFont.truetype(FONT, fontsize )
+                            # optionally de-increment to be sure it is less than criteria
+                            draw.text((avgx1, avgy1 -2 ), ch, font=font)
+                            csvdata["text"] = csvdata["text"][:indx] + '@' + csvdata["text"][indx + 1:]  # replace it with @ so it does not get into account next time
+
+                        indx = indx +1
+
+            print(csvdata["text"])
+            if csvdata["text"] != "@@@@@" and csvdata["text"] != "@@@@@@" and csvdata["text"] != "@@@@@@@" and csvdata["text"] != "@@@@@@@@":
+                continue
             double = Image.new("RGB", (512, 256))
-            # double.paste(pil_image, (256,0))
+
             double.paste(padded, (0, 0))
-            #print(count, os.fsdecode(directory), outdir + '/' + filename  )
+            double.paste(secondImage, (256, 0))
             double.save(outdir + '/' + filename )
 
