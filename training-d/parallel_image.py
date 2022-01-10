@@ -76,9 +76,19 @@ if __name__ == "__main__":
                 print("file", filename, "not selected (openALPR not detecting any license plate)")
                 continue
 
-            secondImage = Image.new("RGB", (256, 256))
+            secondImage = Image.new("RGB", (256, 256), "WHITE")
             secondImage.paste(original_image_resized, (0, 0))
             draw = ImageDraw.Draw(secondImage)
+
+
+
+
+            x = int(csvdata["x1"])
+            y = int(csvdata["y1"])
+            w = int(csvdata["x3"])
+            h = int(csvdata["y3"])
+
+            draw.rectangle([(x, y), (w, h)], outline="red", width=2)
 
             print("File::", csvdata["filename"])
             #print("regionsOfInterest::", jsondata['regionsOfInterest'])
@@ -114,7 +124,7 @@ if __name__ == "__main__":
                             fontsize = find_font_size(ch, deltax, deltay)
                             font = ImageFont.truetype(FONT, fontsize )
                             # optionally de-increment to be sure it is less than criteria
-                            draw.text((avgx1, avgy1 -2 ), ch, font=font)
+                            draw.text((avgx1, avgy1 -2 ), ch, font=font, fill="BLACK")
                             csvdata["text"] = csvdata["text"][:indx] + '@' + csvdata["text"][indx + 1:]  # replace it with @ so it does not get into account next time
 
                         indx = indx +1
