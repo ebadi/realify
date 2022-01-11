@@ -1,1 +1,1 @@
-python3 pix2pix.py test /home/wave/.keras/datasets/license/
+python pix2pix.py test C:\Users\ITDforskning\.keras\datasets\license\
