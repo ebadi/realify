@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 continue
 
             secondImage = Image.new("RGB", (256, 256), "WHITE")
-            secondImage.paste(original_image_resized, (0, 0))
+            # secondImage.paste(original_image_resized, (0, 0))
             draw = ImageDraw.Draw(secondImage)
 
 
@@ -88,7 +88,13 @@ if __name__ == "__main__":
             w = int(csvdata["x3"])
             h = int(csvdata["y3"])
 
-            draw.rectangle([(x, y), (w, h)], outline="red", width=2)
+            # draw.rectangle([(x, y), (w, h)], outline="red", width=2)
+            bar = 7
+            draw.line((x+ bar, y, x + bar , h), fill=(0, 255, 0), width=bar * 2)
+            draw.line((w, y, w, h), fill=(0, 0, 255), width=2)
+
+            draw.line((x, y, w, y), fill=(255, 0, 0), width=2)
+            draw.line((x, h, w, h), fill=(0, 255, 255), width=2)
 
             print("File::", csvdata["filename"])
             #print("regionsOfInterest::", jsondata['regionsOfInterest'])
@@ -130,7 +136,7 @@ if __name__ == "__main__":
                         indx = indx +1
 
             print(csvdata["text"])
-            if csvdata["text"] != "@@@@@" and csvdata["text"] != "@@@@@@" and csvdata["text"] != "@@@@@@@" and csvdata["text"] != "@@@@@@@@":
+            if csvdata["text"] != "@@@@@" and csvdata["text"] != "@@@@@@" and csvdata["text"] != "@@@@@@@" and csvdata["text"] != "@@@@@@@@"  and csvdata["text"] != "@@@@@@@@@":
                 continue
             double = Image.new("RGB", (512, 256))
 
