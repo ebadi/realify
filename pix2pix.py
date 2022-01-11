@@ -222,9 +222,11 @@ def generate_images(model, test_input, tar, display=False):
   if display :
     plt.figure(figsize=(15, 15))
 
-    display_list = [test_input[0], tar[0], prediction[0]]
-    title = ['Input Image', 'Ground Truth', 'Predicted Image']
+    #display_list = [test_input[0], tar[0], prediction[0]]
+    #title = ['Input Image', 'Ground Truth', 'Predicted Image']
 
+    display_list = [tar[0],  test_input[0], prediction[0]]
+    title = ['Ground Truth', 'Input Image', 'Predicted Image']
     for i in range(3):
       plt.subplot(1, 3, i+1)
       plt.title(title[i])
@@ -323,7 +325,7 @@ def fit(train_ds, test_ds, steps):
 
 
     # Save (checkpoint) the model every 5k steps
-    if (step + 1) % 5000 == 0:
+    if (step + 1) % 500 == 0:
       checkpoint.save(file_prefix=checkpoint_prefix)
 
 
@@ -566,7 +568,7 @@ summary_writer = tf.summary.create_file_writer(
 
 if __name__ == "__main__":
   if sys.argv[1] == 'train':
-    fit(train_dataset, test_dataset, steps=5000)
+    fit(train_dataset, test_dataset, steps=80000000)
   else:
     # Restoring the latest checkpoint in checkpoint_dir
 
@@ -577,7 +579,7 @@ if __name__ == "__main__":
 
     # Run the trained model on a few examples from the test set
 
-    for inp, tar in test_dataset.take(5):
+    for inp, tar in test_dataset.take(10):
       generate_images(generator, inp, tar, display=True)
 
 
