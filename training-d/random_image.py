@@ -13,7 +13,7 @@ import util
 from util import *
 import glob
 import random
-
+NOISE = 2
 if __name__ == "__main__":
     directory = sys.argv[1]
     licenseplate = sys.argv[2]
@@ -47,7 +47,6 @@ if __name__ == "__main__":
     original_image_resized = original_image.resize((new_width, new_height), Image.ANTIALIAS)
     padded = Image.new("RGB", (256, 256))
     padded.paste(original_image_resized, (0, 0))
-    # rndfile= '/home/wave/Lukas_LP/00089.jpg'
     bashCommand = "alpr " + rndfile + " -c eu --debug --config openalpr-plusplus.conf | grep JSON >  rnd.json"
     os.system(bashCommand)
     bashCommand = "cat rnd.json | grep DEBUG1 > rndfiltered.json"
@@ -69,7 +68,7 @@ if __name__ == "__main__":
     h = int(csvdata["y3"])
 
     print(x,y,w,h)
-    drawplate(draw, x, y, w, h)
+    drawplate(draw, x + random.randint(-1 * NOISE, NOISE) , y + random.randint(-1 * NOISE, NOISE) , w + random.randint(-1 * NOISE, NOISE), h + random.randint(-1 * NOISE, NOISE))
 
     for plate in jsondata['resultplates']:
             indx = 0
@@ -89,7 +88,7 @@ if __name__ == "__main__":
                 ch = licenseplate[indx]
 
                 # optionally de-increment to be sure it is less than criteria
-                writeletter(draw, avgx1, avgy1 - 2, ch)
+                writeletter(draw, avgx1 + random.randint(-1 * NOISE, NOISE) , avgy1 + random.randint(-1 * NOISE, NOISE), ch)
                 indx = indx + 1
 
 
