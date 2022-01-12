@@ -9,16 +9,9 @@ import numpy
 import json
 import os
 FONT = 'din1451alt.ttf'
+import util
+from util import *
 
-def find_font_size(ch, deltax, deltay):
-    fontsize = 31
-    font = ImageFont.truetype(FONT, fontsize)
-    while font.getsize(ch)[0] < deltax and font.getsize(ch)[1] < deltay:
-        # iterate until the text size is just larger than the criteria
-        fontsize += 1
-        font = ImageFont.truetype(FONT, fontsize + 1)
-    #print("font::::", fontsize)
-    return fontsize
 
 
 if __name__ == "__main__":
@@ -88,13 +81,7 @@ if __name__ == "__main__":
             w = int(csvdata["x3"])
             h = int(csvdata["y3"])
 
-            # draw.rectangle([(x, y), (w, h)], outline="red", width=2)
-            bar = 7
-            draw.line((x+ bar, y, x + bar , h), fill=(0, 255, 0), width=bar * 2)
-            draw.line((w, y, w, h), fill=(0, 0, 255), width=2)
-
-            draw.line((x, y, w, y), fill=(255, 0, 0), width=2)
-            draw.line((x, h, w, h), fill=(0, 255, 255), width=2)
+            drawplate(draw, x, y, w, h)
 
             print("File::", csvdata["filename"])
             #print("regionsOfInterest::", jsondata['regionsOfInterest'])
@@ -127,10 +114,7 @@ if __name__ == "__main__":
 
                         if indx < len(csvdata["text"]) and ch == csvdata["text"][indx] :
                             print("comparing", ch, " with ", csvdata["text"][indx])
-                            fontsize = find_font_size(ch, deltax, deltay)
-                            font = ImageFont.truetype(FONT, fontsize )
-                            # optionally de-increment to be sure it is less than criteria
-                            draw.text((avgx1, avgy1 -2 ), ch, font=font, fill="BLACK")
+                            writeletter(draw, avgx1, avgy1 - 2, ch)
                             csvdata["text"] = csvdata["text"][:indx] + '@' + csvdata["text"][indx + 1:]  # replace it with @ so it does not get into account next time
 
                         indx = indx +1
