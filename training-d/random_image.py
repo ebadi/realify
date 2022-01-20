@@ -13,7 +13,8 @@ import util
 from util import *
 import glob
 import random
-NOISE = 2
+NOISE = 1
+random.seed()
 if __name__ == "__main__":
     directory = sys.argv[1]
     licenseplate = sys.argv[2]

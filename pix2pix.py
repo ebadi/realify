@@ -234,7 +234,13 @@ def generate_images(model, test_input, tar, display=False):
       plt.imshow(display_list[i] * 0.5 + 0.5)
       plt.axis('off')
     plt.show()
+  else:
 
+    print("EEEEEEEEEEEEEEEE")
+
+    tf.keras.preprocessing.image.save_img('out.png', prediction[0])
+    #print(prediction)
+    #print(prediction[0])
 
 def generator_loss(disc_generated_output, gen_output, target):
   gan_loss = loss_object(tf.ones_like(disc_generated_output), disc_generated_output)
@@ -535,8 +541,8 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 # In[38]:
 
 
-for example_input, example_target in test_dataset.take(1):
-  generate_images(generator, example_input, example_target)
+#for example_input, example_target in test_dataset.take(1):
+#  generate_images(generator, example_input, example_target)
 
 
 
@@ -569,18 +575,15 @@ summary_writer = tf.summary.create_file_writer(
 if __name__ == "__main__":
   if sys.argv[1] == 'train':
     fit(train_dataset, test_dataset, steps=80000000)
-  else:
+  elif sys.argv[1] == 'test':
     # Restoring the latest checkpoint in checkpoint_dir
-
     print("**** restored checkpoint", checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)) )
     # ## Generate some images using the test set
-
-    # In[ ]:
-
     # Run the trained model on a few examples from the test set
-
     for inp, tar in test_dataset.take(10):
       generate_images(generator, inp, tar, display=True)
 
-
-
+  elif sys.argv[1] == 'single':
+    print("**** restored checkpoint", checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)) )
+    for inp, tar in test_dataset.take(1):
+      generate_images(generator, inp, tar, display=False)
