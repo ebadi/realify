@@ -1,3 +1,12 @@
+**Realify**, generates realistic looking license plate from outlines.
+
+![Realify](resources/sample.png)
+
+### Demo
+
+A short [video demo **realify** ](https://www.youtube.com/watch?v=D-7qlTAg3Zw)
+
+
 ### Installation
 Create and enable **virtual env**:
 ```
@@ -65,62 +74,13 @@ Run the model:
 
 
 
-Without GPU
-```
-Step: 0k
-Time taken for 1000 steps: 802.29 sec...............................................................[2K
+This work is done by [Infotiv AB](https://www.infotiv.se) under [VALU3S](https://valu3s.eu) project in a collaboration with [RISE](https://www.ri.se) under [ITEA3](https://itea4.org) European [IVVES](https://itea4.org/project/ivves.html) project. This project has received funding from the [ECSEL](https://www.ecsel.eu) Joint Undertaking (JU) under grant agreement No 876852. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and Austria, Czech Republic, Germany, Ireland, Italy, Portugal, Spain, Sweden, Turkey.
 
-Step: 1k
-Time taken for 1000 steps: 427.89 sec...............................................................[2K
-
-Step: 2k
-Time taken for 1000 steps: 404.76 sec...............................................................[2K
-```
-
-With GPU
-
-```
-Step: 0k
-Time taken for 1000 steps: 71.60 sec................................................................←[2K
-
-Step: 1k
-Time taken for 1000 steps: 71.53 sec................................................................←[2K
-
-Step: 2k
-Time taken for 1000 steps: 76.28 sec................................................................←[2K
-
-Step: 3k
-Time taken for 1000 steps: 70.84 sec................................................................←[2K
-```
-
-./exec_model.sh
-```
+The ECSEL JU and the European Commission are not responsible for the content on this website or any use that may be made of the information it contains.
 
 
-Without GPU
-```
-Step: 0k
-Time taken for 1000 steps: 802.29 sec...............................................................[2K
+INFOTIV AB | RISE Research Institutes of Sweden | CHALMERS | Mälardalen University | VALU3S Project
+------------ |  ------------  | ------------ | ------------ | ------------ 
+![](resources/logos/INFOTIV-logo.png)  | ![](resources/logos/RISE-logo.png)  | ![](resources/logos/CHALMERS-logo.png) | ![](resources/logos/Malardalen-logo.png) | ![](resources/logos/VALU3S-logo.png) 
 
-Step: 1k
-Time taken for 1000 steps: 427.89 sec...............................................................[2K
-
-Step: 2k
-Time taken for 1000 steps: 404.76 sec...............................................................[2K
-```
-
-With GPU
-
-```
-Step: 0k
-Time taken for 1000 steps: 71.60 sec................................................................←[2K
-
-Step: 1k
-Time taken for 1000 steps: 71.53 sec................................................................←[2K
-
-Step: 2k
-Time taken for 1000 steps: 76.28 sec................................................................←[2K
-
-Step: 3k
-Time taken for 1000 steps: 70.84 sec................................................................←[2K
-```
+[Realify](https://github.com/ebadi/ScenarioGenerator) project is started and is currently maintained by [Hamid Ebadi](https://github.com/ebadi).
