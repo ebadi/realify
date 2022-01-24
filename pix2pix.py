@@ -235,9 +235,7 @@ def generate_images(model, test_input, tar, display=False):
       plt.axis('off')
     plt.show()
   else:
-
-    print("EEEEEEEEEEEEEEEE")
-
+    print("Saving the predicted image")
     tf.keras.preprocessing.image.save_img('out.png', prediction[0])
     #print(prediction)
     #print(prediction[0])
@@ -362,7 +360,7 @@ print(list(PATH.parent.iterdir()))
 # In[9]:
 
 
-inp, re = load(str(PATH / 'train/100.jpg'))
+inp, re = load(str(PATH / 'train/00035.jpg'))
 # Casting to int for matplotlib to display the images
 plt.figure()
 plt.imshow(inp / 255.0)

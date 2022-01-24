@@ -1,5 +1,5 @@
 ### Installation
-Create and enable virtual env:
+Create and enable **virtual env**:
 ```
 git clone https://github.com/ebadi/realify
 cd realify

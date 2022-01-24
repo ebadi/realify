@@ -38,7 +38,7 @@ if __name__ == "__main__":
             if c > rndid and len(csvdata["text"]) == len(licenseplate) :
                 break
 
-
+    print(rndid)
     original_image = Image.open(rndfile)
     #### resize, keep the aspect ratio
     width = original_image.size[0]
@@ -97,6 +97,7 @@ if __name__ == "__main__":
 
     double.paste(padded, (0, 0))
     double.paste(secondImage, (256, 0))
+    secondImage.save("second.jpg")
     double.save("rnd.jpg")
 
     exit()
